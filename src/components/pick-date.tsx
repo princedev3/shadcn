@@ -77,12 +77,12 @@ const PickDate = () => {
                     </PopoverTrigger>
                     <PopoverContent className="w-auto p-0" align="start">
                       <Calendar
-                        disabled={(date) =>
+                        disabled={(date: any) =>
                           date < new Date(new Date().setHours(0, 0, 0, 0))
                         }
                         mode="range"
                         selected={field.value}
-                        onSelect={(range) => {
+                        onSelect={(range: any) => {
                           field.onChange(range);
                           if (range?.from && range?.to) {
                             form.handleSubmit(onSubmit)();
