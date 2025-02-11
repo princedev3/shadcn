@@ -1,101 +1,147 @@
+"use client";
 import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { formSchema } from "@/schemas/schemas";
+import PaymentMethod from "@/components/payment-method";
+import TeamMember from "@/components/team-member";
+import ShareDocument from "@/components/share-document";
+import PickDate from "@/components/pick-date";
+import Notification from "@/components/notification";
+import ReportCase from "@/components/report-case";
+import ShadCn from "@/components/shad-cn";
+import CookieSetting from "@/components/cookie-setting";
+import { Github } from "lucide-react";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values);
+  }
+
+  return (
+    <div className=" shadow-lg rounded-2xl max-w-6xl mx-auto  md:p-0">
+      <div className="grid p-4 md:p-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* right */}
+        <div className="grid gap-6 h-fit">
+          <div className="border rounded-xl p-4">
+            <h1 className="font-bold text-xl">Create an account</h1>
+            <p className="text-zinc-700 text-sm my-2">
+              Enter your email below to create your account
+            </p>
+            <div className="flex justify-between my-5">
+              <Badge
+                variant="outline"
+                className="text-zinc-700 p-2 w-[130px] !rounded-lg text-center flex items-center justify-center "
+              >
+                <div className="flex items-center gap-2">
+                  <Github className="w-4 h-4" />
+                  Github
+                </div>
+              </Badge>
+              <Badge
+                variant="outline"
+                className="text-zinc-700 !rounded-lg p-2 w-[130px] text-center flex items-center justify-center "
+              >
+                <div className="flex items-center gap-2">
+                  <Image
+                    src={"/google.png"}
+                    width={10}
+                    height={10}
+                    alt=""
+                    className="w-4 h-4 object-cover"
+                  />
+                  Google
+                </div>
+              </Badge>
+            </div>
+            <div className="flex justify-center items-center gap-1">
+              <div className=" flex-grow border-b border-zinc-400 "></div>
+              <p className="uppercase text-sm font-semibold text-zinc-500">
+                or continue with
+              </p>
+              <div className=" flex-grow border-b border-zinc-400"></div>
+            </div>
+            <div className="my-2">
+              <Form {...form}>
+                <form
+                  onSubmit={form.handleSubmit(onSubmit)}
+                  className="space-y-4"
+                >
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input placeholder="enter your email" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="password"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Password</FormLabel>
+                        <FormControl>
+                          <Input placeholder="enter your password" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    type="submit"
+                    className="w-full bg-blue-700 rounded-2xl hover:bg-blue-600 cursor-pointer"
+                  >
+                    create account
+                  </Button>
+                </form>
+              </Form>
+            </div>
+          </div>
+          <div className="border rounded-xl p-4">
+            <PaymentMethod />
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* center */}
+        <div className="grid gap-4 h-fit ">
+          <TeamMember />
+          <ShareDocument />
+          <PickDate />
+          <Notification />
+        </div>
+        {/* left */}
+        <div className="grid gap-4 h-fit  ">
+          <ReportCase />
+          <ShadCn />
+          <CookieSetting />
+        </div>
+      </div>
     </div>
   );
 }
