@@ -8,7 +8,7 @@ import { v4 as uuid } from "uuid";
 import { encode as defaultEncode } from "next-auth/jwt";
 
 const adapter = PrismaAdapter(prisma);
-export const { auth, handlers, signIn } = NextAuth({
+export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter,
   providers: [
     GoogleProvider,

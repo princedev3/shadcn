@@ -24,8 +24,10 @@ import ReportCase from "@/components/report-case";
 import ShadCn from "@/components/shad-cn";
 import CookieSetting from "@/components/cookie-setting";
 import { Github } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,8 +40,21 @@ export default function Home() {
     console.log(values);
   }
 
+  const handleLogout = async () => {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_localhost}/api/logout`, {
+      method: "POST",
+    });
+    if (res.ok) {
+      router.push("/login");
+    }
+    console.log(res);
+  };
+
   return (
     <div className=" shadow-lg rounded-2xl max-w-6xl mx-auto  md:p-0">
+      <div>
+        <button onClick={handleLogout}>signout</button>
+      </div>
       <div className="grid p-4 md:p-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* right */}
         <div className="grid gap-6 h-fit">
