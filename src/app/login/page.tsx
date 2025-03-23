@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { auth, signIn } from "@/lib/auth";
+import { signIn } from "@/lib/auth";
 
 import React from "react";
 
