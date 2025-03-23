@@ -47,9 +47,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           return user;
         } catch (error) {
           console.error("Auth Error:", error);
-          throw new Error(
-            `/error?error=${encodeURIComponent(error?.message as string)}`
-          );
+          return null;
         }
       },
     }),
