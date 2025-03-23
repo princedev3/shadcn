@@ -21,29 +21,36 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         password: {},
       },
       authorize: async (credentials) => {
-        const { email, password } = credentials;
-        const user = await prisma.user.findUnique({
-          where: {
-            email: email as string,
-          },
-        });
+        try {
+          const { email, password } = credentials;
+          const user = await prisma.user.findUnique({
+            where: {
+              email: email as string,
+            },
+          });
 
-        if (!user) {
-          return null;
-        }
-        const isPasswordCorrect = password === user.password;
-        if (!isPasswordCorrect) {
-          return null;
-        }
-        // if (!user.emailVerified) {
-        //   const verifyToken = await generateVerificationtokenbyemail(
-        //     email as string
-        //   );
-        //   await sendVerificationEmail(email as string, verifyToken.token);
-        //   return null;
-        // }
+          if (!user) {
+            return null;
+          }
+          const isPasswordCorrect = password === user.password;
+          if (!isPasswordCorrect) {
+            return null;
+          }
+          // if (!user.emailVerified) {
+          //   const verifyToken = await generateVerificationtokenbyemail(
+          //     email as string
+          //   );
+          //   await sendVerificationEmail(email as string, verifyToken.token);
+          //   return null;
+          // }
 
-        return user;
+          return user;
+        } catch (error) {
+          console.error("Auth Error:", error);
+          throw new Error(
+            `/error?error=${encodeURIComponent(error?.message as string)}`
+          );
+        }
       },
     }),
   ],
