@@ -11,7 +11,10 @@ import { NextResponse } from "next/server";
 const adapter = PrismaAdapter(prisma);
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
-    GoogleProvider,
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
     Credentials({
       credentials: {
         email: {},
