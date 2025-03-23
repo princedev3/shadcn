@@ -1,17 +1,25 @@
 "use client";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
-const ErrorPage = () => {
-  const router = useRouter();
-  const { error } = router.query;
+export default function CustomErrorPage() {
+  const { query } = useRouter();
+  const error = query.error as string | undefined;
+
+  const errorMessages: Record<string, string> = {
+    Configuration: "Authentication configuration error.",
+    AccessDenied: "Access was denied. You may not have permission.",
+    Verification: "Verification failed. Please try again.",
+    default: "An unexpected error occurred. Please try again.",
+  };
 
   return (
-    <div>
-      <h1>Error during Sign-In</h1>
-      <p>{error ? error : "An unexpected error occurred. Please try again."}</p>
-      <a href="/login">Go back to login</a>
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <h1 className="text-2xl font-bold text-red-500">Authentication Error</h1>
+      <p className="text-gray-700 mt-2">{errorMessages[error || "default"]}</p>
+      <Link href="/" className="mt-4 text-blue-500">
+        Go back to homepage
+      </Link>
     </div>
   );
-};
-
-export default ErrorPage;
+}
