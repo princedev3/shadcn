@@ -40,7 +40,7 @@ export default function Home() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
-const session = 
+
   const handleLogout = async () => {
     await signOut({ redirect: false });
 
