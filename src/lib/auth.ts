@@ -47,6 +47,9 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
       },
     }),
   ],
+  pages: {
+    error: "/error",
+  },
   callbacks: {
     async signIn({ user, account }) {
       if (account?.provider === "google") {
