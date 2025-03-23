@@ -26,7 +26,7 @@ import CookieSetting from "@/components/cookie-setting";
 import { Github } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-console.log(process.env.NEXT_PUBLIC_URL);
+console.log("url", process.env.NEXT_PUBLIC_URL);
 
 export default function Home() {
   const router = useRouter();
