@@ -1,14 +1,15 @@
 import { Button } from "@/components/ui/button";
-import { signIn } from "@/lib/auth";
+import { signIn, auth } from "@/lib/auth";
+import { redirect } from "next/navigation";
 
 import React from "react";
 
 const page = async () => {
-  // const session = await auth();
+  const session = await auth();
 
-  // if (session) {
-  //   redirect("/");
-  // }
+  if (session) {
+    redirect("/");
+  }
   return (
     <div className="">
       <form
