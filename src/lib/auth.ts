@@ -29,11 +29,11 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
         });
 
         if (!user) {
-          throw new Error("Incorrect credentials");
+          return null;
         }
         const isPasswordCorrect = password === user.password;
         if (!isPasswordCorrect) {
-          throw new Error("Incorrect password.");
+          return null;
         }
         // if (!user.emailVerified) {
         //   const verifyToken = await generateVerificationtokenbyemail(
