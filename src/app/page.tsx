@@ -26,7 +26,7 @@ import CookieSetting from "@/components/cookie-setting";
 import { Github } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-console.log(process.env.NEXT_PUBLIC_localhost);
+console.log(process.env.NEXT_PUBLIC_URL);
 
 export default function Home() {
   const router = useRouter();
@@ -43,7 +43,7 @@ export default function Home() {
   }
 
   const handleLogout = async () => {
-    const res = await fetch(`https://shadcn-red-eta.vercel.app/api/logout`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/logout`, {
       method: "POST",
     });
     if (res.ok) {
