@@ -48,7 +48,7 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     }),
   ],
   pages: {
-    error: "/error",
+    error: "/error?error=auth_failed",
   },
   callbacks: {
     async signIn({ user, account }) {
