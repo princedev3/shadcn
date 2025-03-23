@@ -27,8 +27,6 @@ import { Github } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { signOut } from "next-auth/react";
 
-console.log("url", process.env.NEXT_PUBLIC_URL);
-
 export default function Home() {
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -42,16 +40,7 @@ export default function Home() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
   }
-
-  // const handleLogout = async () => {
-  //   const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/api/logout`, {
-  //     method: "POST",
-  //   });
-  //   if (res.ok) {
-  //     router.push("/login");
-  //   }
-  //   console.log(res);
-  // };
+const session = 
   const handleLogout = async () => {
     await signOut({ redirect: false });
 

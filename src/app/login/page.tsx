@@ -14,7 +14,7 @@ const page = async () => {
       <form
         action={async () => {
           "use server";
-          const res = await signIn("google");
+          await signIn("google");
         }}
       >
         <Button type="submit">login with google</Button>
