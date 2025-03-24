@@ -51,9 +51,6 @@ export default function Home() {
   };
   return (
     <div className=" shadow-lg rounded-2xl max-w-6xl mx-auto  md:p-0">
-      <div>
-        <button onClick={handleLogout}>signout</button>
-      </div>
       <div className="grid p-4 md:p-8 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         {/* right */}
         <div className="grid gap-6 h-fit">
